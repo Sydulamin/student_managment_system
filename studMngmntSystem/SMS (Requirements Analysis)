@@ -1,0 +1,151 @@
+Functional Requirements:
+---------------------------
+
+
+-----
+User Role: Student, Registrar, Instructor, Administrator
+-----
+
+
+
+Student:
+
+REQ-1: The system shall authenticate before accessing system.
+
+REQ-2: The system shall display Notice.
+
+REQ-3: The system shall allow students to view their academic status/grades.
+
+REQ-4: The system shall allow students to view their attendance report.
+
+REQ-5: The system should allow students to view the notice information.
+
+REQ-6: The system shall display student’s detail.
+
+Registrar:
+
+REQ-1: The system shall require login before providing any function for registrar.
+
+REQ-2: The system shall allow registrar to change his /her account information.
+
+REQ-3: The system should allow registrar to view the notice information
+
+REQ-4: The system shall calculate cumulative GPA for any student.
+
+REQ-5: The system shall search any student detailed information.
+
+Instructor:
+
+REQ-1: The system shall require login before providing any function for any instructor.
+
+REQ-2: The system shall allow uploading notice.
+
+REQ-3: The system shall display lists courses that are taken by students to instructors.
+
+REQ-4: The system shall take attendance of students from the instructor
+
+REQ-5: The system shall import the academic grade of students from the instructor.
+
+Administrator:
+
+REQ-1: The system shall require login before providing any function for administrator.
+
+REQ-3: The system shall allow the user to control the overall activities in the system.
+
+REQ-4: The system shall allow administrator to change his /her account information.
+
+REQ-4: The system shall remove wrong entries from the system.
+
+REQ-5: the system shall view reports in different operations in the system.
+
+REQ-6: The system shall ensure that the information entered is of the correct format.
+
+
+
+
+
+
+
+
+
+
+Non-Functional Requirements
+---------------------------------
+
+
+Non-functional requirements or system qualities capture required properties of the system, such as performance, security, maintainability, etc. in other words, how well some behavioral or structural aspect of the system should be accomplished. [6]
+
+The non-functional requirements of the system are described as follows.
+
+Security:
+
+• Security requirement is very important in this project, including privacy. The administrator (including course admin and system admin) should provide high security interface for user and protect their personal data. In order to achieve this requirement, the project team should set up some standards such as security policy, system management handbook. In addition, use software and hardware to prevent, detect and correct the system, such as firewall, antivirus software, will reduce the risk of security.
+
+• The external security should be provided by given the login authentication.
+
+• There should be proper security regarding to the accessing of data by unauthorized user.
+
+Performance:
+
+• The system shall minimize errors and clear error message should be displayed that guide user to handle it.
+
+• The performance of the functions and every module should be well.
+
+• Improve performance by using computers or laptops that have high processor speed and RAM.
+
+Usability:
+
+• By training users to become familiar with the system and by designing user friendly interface, the end users are able to place an order within few response times.
+
+Availability:
+
+• The system will be available to its users with or without internet connection because users can have access to it using the local intranet from within the campus.
+
+Correctness:
+
+• The results of the function should be pure and accurate by validating or testing the system.
+
+Portability:
+
+• The software shall be deployed at any machine.
+
+Reliability:
+
+• Increasing the performance of the software will improve the reliability of the software.
+
+• Storing backup data can increase reliability of the software.
+
+Reusability:
+
+• The data and record that are saved shall be reused if needed that’s stored in backup.
+
+Design Constraints:
+
+• The system shall replace the existing system by providing more features in SIMS.
+
+Documentation:
+
+• Documentation will help the project team to make a knowledge management. Therefore, it is a necessary requirement. The documentation is including proposal, project report, and so on.
+
+Quality Control:
+
+• The system quality control is also important requirement. The system should be fast and efficient service to all users. Adaptability, availability, flexibility, and reliability are the key issues of this requirement. Using suitable software and hardware to develop the system, will enable to achieve this requirement.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

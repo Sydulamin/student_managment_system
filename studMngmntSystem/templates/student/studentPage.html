@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- Build Decorator to compel the user to get authenticated before viewing this page-->
+<!-- inside the 'rolesPermsApp' application -->
+    <h1>Student Page</h1>
+
+    User Type: {{ user }}
+    <br/>
+    User ID: {{ user.id }}
+    <br/>
+
+    <a href="{% url 'authApp:userLogout' %}">Logout</a>
+
+
+    <div class="container-fluid">
+
+        <div class="row" style="padding: 0 4rem;">
+<!--            Sidebar - left -->
+            <div class="col-3" style="margin-right:7rem;">
+                <div class="row bg-success">
+                    <div class="col"></div>
+                    <div class="col">
+                        <img src="{{ student.student_image.url }}"
+                                  alt="" style="width:10rem; height:10rem; border-radius: 50%;">
+                    </div>
+                    <div class="col"></div>
+
+                </div>
+
+                <div class="row bg-info text-center">
+                    <h1> {{ student.student_name }} </h1>
+                </div>
+
+                <div class="row bg-warning text-center">
+                    <p> {{ student.semester_id }}, {{ student.semester_id.student_year }} </p>
+                </div>
+            </div>
+
+<!--            Mid Section -->
+            <div class="col-8">
+        <!--        Profile Info Row -1 -->
+                <div class="row bg-secondary">
+                    <div class="col">
+                        <h1>View Reports</h1>
+                    </div>
+                </div>
+
+        <!--        Profile Info Row -2 -->
+                <div class="row bg-info">
+                    <div class="col">
+                        <h1>Father Name: {{ student.student_father_name }} </h1>
+                    </div>
+                    <div class="col">
+                        <h1>Mother Name: {{ student.student_mother_name }} </h1>
+                    </div>
+                </div>
+
+        <!--        Profile Info Row -3 -->
+                <div class="row bg-warning">
+                    <div class="col">
+                        <h1>Gender: {{ student.gender }} </h1>
+                    </div>
+                    <div class="col">
+                        <h1>Phone: {{ student.phone }} </h1>
+                    </div>
+                </div>
+
+        <!--        Profile Info Row -4 -->
+                <div class="row bg-danger">
+                    <div class="col">
+                        <h1>Special Update Button</h1>
+                        <a href="{% url 'studentApp:updateStudentInfo' %}" class="btn btn-success">Update</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

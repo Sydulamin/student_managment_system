@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1> Student Page </h1>
+
+
+    <br><br><br>
+
+    <form action="{% url 'studentApp:createStudent' %}" method="POST" class="p-4" style="background-color: #F0FFFF">
+        {% csrf_token %}
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="student_name" class="form-label"> <b> Student Name </b> </label>
+                    </div>
+                    <div class="col">
+                        <label for="student_age" class="form-label"> <b>Student Age</b> </label>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="student_name" name="student_name">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" id="student_age" name="student_age">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br><br><br>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student ID</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Student Age</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row"> {{ forloop.counter }} </th>
+            <td> {{ std.pk }} </td>
+            <td id="std_name_{{ std.pk }}">{{ std.student_name }}</td>
+            <td id="std_age_{{ std.pk }}">{{ std.student_age }}</td>
+            <!-- Update Button Section -->
+            <td>
+                <!-- Hidden Delete Form -->
+                <form action="#" method="POST" id="update_modal_form_{{ std.id }}" style="display: none;">
+                  {% csrf_token %}
+                  <button type="submit" class="updateBtn">Update {{ std.pk }} </button>
+                </form>
+                <a href="#" class="btn btn-success" onclick="openUpdateModal( {{ std.pk }} )">Update</a>
+            </td>
+
+
+            <!-- Delete Button Section -->
+            <td>
+                <!-- Hidden Delete Form -->
+                <form action="#" method="POST" id="del_modal_form_{{ std.id }}" style="display: none;">
+                  {% csrf_token %}
+                  <button type="submit" class="deletebtn">Delete {{ std.pk }} </button>
+                </form>
+                <a href="#" class="btn btn-danger" onclick="openDeleteModal( {{ std.pk }} )">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+<script>
+
+<!--    let form_id = document.getElementById('del_modal_form_1');-->
+<!--    form_id.addEventListener('submit', (e) => {-->
+<!--        e.preventDefault();-->
+<!--    });-->
+
+    function openDeleteModal(std_id){
+
+        let form_id = 'del_modal_form_' + std_id;
+
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log('Form ID:', form_id);
+            form = document.getElementById(form_id);
+            form.submit();
+          }
+        })
+    }
+
+
+
+
+    function openUpdateModal(std_id) {
+        <!-- Student Name ID Construction -->
+        std_name_td_id = 'std_name_' + std_id;
+        student_name_value = document.getElementById(std_name_td_id).innerHTML;
+
+        console.log('Student Name TD ID: ', std_name_td_id);
+        console.log('Student Name DOM Element Value: ', student_name_value);
+
+
+        <!-- Student Age ID Construction -->
+        std_age_td_id = 'std_age_' + std_id;
+        student_age_value = document.getElementById(std_age_td_id).innerHTML;
+
+        console.log('Student Age TD ID: ', std_age_td_id);
+        console.log('Student Age DOM Element Value: ', student_age_value);
+
+        let form_id = 'update_modal_form_' + std_id;
+
+        Swal.fire({
+          title: 'Update Form',
+          width: 800,
+          html: `
+              <div class="container ">
+                  <div class="row">
+                    <div class="col-5">
+                        <label for="s_name" style="margin-top: 2rem;"><b>Student Name:</b></label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="swal2-input" id="s_name" value='${student_name_value}' style='width: 18rem;'>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-5">
+                        <label for="s_age" style="margin-top: 2rem;"><b>Student Age:</b></label>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="swal2-input" id="s_age" value='${student_age_value}'>
+                    </div>
+                  </div>
+              </div>
+          `,
+          confirmButtonText: 'Save',
+          focusConfirm: false,
+          preConfirm: () => {
+            const login = Swal.getPopup().querySelector('#s_name').value
+            const password = Swal.getPopup().querySelector('#s_age').value
+            if (!login || !password) {
+              Swal.showValidationMessage(`Please enter login and password`)
+            }
+            return { login: login, password: password }
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            form = document.getElementById(form_id);
+            form.submit();
+          }
+        })
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

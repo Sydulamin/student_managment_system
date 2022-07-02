@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Page</title>
+</head>
+<body>
+
+    <!-- Build Decorator to compel the user to get authenticated before viewing this page-->
+    <!-- inside the 'rolesPermsApp' application -->
+    <h1>Staff Page</h1>
+
+    <a href="{% url 'authApp:userLogout' %}">Logout</a>
+    <br/>
+    <a href="{% url 'rolesPermsApp:adminPage' %}">Admin Page</a>
+
+</body>
+</html>

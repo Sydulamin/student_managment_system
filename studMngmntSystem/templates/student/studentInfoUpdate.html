@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Info Update</title>
+</head>
+<body>
+
+    <h1> Student Information Update </h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+    <!--    render the student update form -->
+        {{ Student_Update_Form.student_name.label }}
+        {{ Student_Update_Form.student_name }}
+
+        <br/><br/>
+        {{ Student_Update_Form.student_age.label }}
+        {{ Student_Update_Form.student_age }}
+
+        <br/><br/>
+        {{ Student_Update_Form.student_father_name.label }}
+        {{ Student_Update_Form.student_father_name }}
+
+        <br/><br/>
+        {{ Student_Update_Form.student_mother_name.label }}
+        {{ Student_Update_Form.student_mother_name }}
+
+        <br/><br/>
+        {{ Student_Update_Form.gender.label }}
+        {{ Student_Update_Form.gender }}
+
+        <br/><br/>
+        {{ Student_Update_Form.phone.label }}
+        {{ Student_Update_Form.phone }}
+
+
+        <button type="submit"> Update </button>
+    </form>
+
+</body>
+</html>

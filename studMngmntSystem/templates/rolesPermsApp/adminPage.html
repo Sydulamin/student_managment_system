@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- Build Decorator to compel the user to get authenticated before viewing this page-->
+<!-- inside the 'rolesPermsApp' application -->
+
+
+<div class="container">
+
+    <h1>Admin Page</h1>
+
+    User Type: {{ user }}
+
+    <br/>
+
+
+    <a href="{% url 'rolesPermsApp:staffPage' %}">Staff Page</a>
+    <br/>
+    <a href="{% url 'authApp:userLogout' %}">Logout</a>
+
+    <br><br><br>
+
+    {% if request.user.is_superuser %}
+    <form action="#" method="POST" class="p-4"
+          enctype="multipart/form-data"
+          style="background-color: #F0FFFF">
+        {% csrf_token %}
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="student_name" class="form-label"> <b> Student Name </b> </label>
+                    </div>
+                    <div class="col">
+                        <label for="student_age" class="form-label"> <b>Student Age</b> </label>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="student_name" name="student_name">
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" id="student_age" name="student_age">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="file" id="image" name="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Section: Father & Mother Name -->
+        <!-- Labels -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="student_father_Name" class="form-label"> <b>Father's Name</b> </label>
+                    </div>
+                    <div class="col">
+                        <label for="student_mother_name" class="form-label"> <b>Mother's Name</b> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Input Fields -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" id="student_father_name" name="student_father_name">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="student_mother_name" name="student_mother_name">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Section: Gender & Phone -->
+        <!-- Labels -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="student_gender" class="form-label"> <b>Gender</b> </label>
+                    </div>
+                    <div class="col">
+                        <label for="student_phone" class="form-label"> <b>Phone</b> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Input Fields -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-select" aria-label="Default select example" name="gender">
+                            <option selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" id="student_phone" name="student_phone">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Section: Semester -->
+        <!-- Labels -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <label for="student_semester" class="form-label"> <b>Semester</b> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Input Fields -->
+        <div class="mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-select" aria-label="Default select example" name = "semester">
+                            <option selected>Select Semester</option>
+                            {% for sem in semester %}
+                            <option value="{{ sem }}"> {{ sem }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+
+    <br><br><br>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Student Image</th>
+            <th scope="col">Student ID</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Student Age</th>
+            <th scope="col">Update</th>
+            {% if request.user.is_superuser %}
+            <th scope="col">Delete</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for std in student %}
+        <tr>
+            <th scope="row"> {{ forloop.counter }}</th>
+            <td> <img src="{{ std.student_image.url }}"
+                      alt="" style="width:5rem; height:5rem;">
+            </td>
+            <td> {{ std.pk }}</td>
+            <td id="std_name_{{ std.pk }}">{{ std.student_name }}</td>
+            <td id="std_age_{{ std.pk }}">{{ std.student_age }}</td>
+            <!-- Update Button Section -->
+            <td>
+                <!-- Hidden Delete Form -->
+<!--                <form action="#" method="POST" id="update_modal_form_{{ std.id }}" style="display: none;">-->
+<!--                    {% csrf_token %}-->
+<!--                    <button type="submit" class="updateBtn">Update {{ std.pk }}</button>-->
+<!--                </form>-->
+<!--                <a href="#" class="btn btn-success" onclick="openUpdateModal( {{ std.pk }} )">Update</a>-->
+                <a href="{% url 'rolesPermsApp:adminPage_stud_update' std.pk %}" class="btn btn-success">Update</a>
+            </td>
+
+
+            {% if request.user.is_superuser %}
+            <!-- Delete Button Section -->
+            <td>
+                <!-- Hidden Delete Form -->
+<!--                <form action="#" method="POST" id="del_modal_form_{{ std.id }}" style="display: none;">-->
+<!--                    {% csrf_token %}-->
+<!--                    <button type="submit" class="deletebtn">Delete {{ std.pk }}</button>-->
+<!--                </form>-->
+<!--                <a href="#" class="btn btn-danger" onclick="openDeleteModal( {{ std.pk }} )">Delete</a>-->
+                <a href="{% url 'rolesPermsApp:adminPage_stud_delete_confirmation' std.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
